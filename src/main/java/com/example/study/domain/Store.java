@@ -36,4 +36,5 @@ public class Store extends BaseEntity {
     private Region region;
 
 
+
 }

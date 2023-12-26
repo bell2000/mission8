@@ -22,6 +22,8 @@ public class Review extends BaseEntity {
 
     private Float score;
 
+    private String body;
+
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<ReviewImage> reviewImageList = new ArrayList<>();
 

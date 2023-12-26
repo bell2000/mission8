@@ -1,6 +1,7 @@
 package com.example.study.domain;
 
 import com.example.study.domain.common.BaseEntity;
+import com.example.study.domain.enums.MissionStatus;
 import com.example.study.domain.mapping.MemberMission;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,5 +33,9 @@ public class Mission extends BaseEntity {
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
+
+
+    @Enumerated(EnumType.STRING)
+    private MissionStatus status;
 
 }
