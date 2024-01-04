@@ -5,6 +5,7 @@ import com.example.study.apiPayload.exception.handler.StoreHandler;
 import com.example.study.converter.ReviewConverter;
 import com.example.study.domain.Review;
 import com.example.study.domain.Store;
+import com.example.study.repository.MemberRepository;
 import com.example.study.repository.ReviewRepository;
 import com.example.study.repository.StoreRepository;
 import com.example.study.web.dto.ReviewRequestDto;
@@ -20,14 +21,17 @@ public class ReviewCommandServiceImpl implements ReviewCommandService{
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
 
+    private final MemberRepository memberRepository;
     @Override
     @Transactional
-    public Review registReview(Long storeId, ReviewRequestDto.ReviewDTO request){
+    public Review registReview(Long memberId, Long storeId, ReviewRequestDto.ReviewDTO request){
 
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_FOUND));
 
         Review review = ReviewConverter.toReview(request, store);
+        review.setMember(memberRepository.findById(memberId).get());
+        review.setStore(storeRepository.findById(storeId).get());
 
         store.getReviewList().add(review);
 

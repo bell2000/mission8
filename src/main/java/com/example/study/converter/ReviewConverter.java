@@ -26,4 +26,14 @@ public class ReviewConverter {
                 .build();
     }
 
+    ///////////////////////////////////////////////////////////////
+    public static Review toReview(ReviewRequestDto.ReviewDTO request){
+        return Review.builder()
+                .title(request.getTitle())
+                .score(request.getScore())
+                .body(request.getBody())
+                .build();
+    }
+
+
 }
